@@ -9,13 +9,7 @@
     5. 위치 서비스
 
 # 시작
-    하나의 폴더에서 각자 작업하는 경우
-        1. 폴더 clone 
-        2. 각자 브랜치 생성
-        3. 개인 작업 후 push 
-        4. develop 브랜치로 PR
-        5. 다시 개인 작업 시작할 땐 pull 먼저하고 작업
-    
-    그외
-    - 상위 브랜치에 내용이 업데이트 된 경우 내 브랜치에서 git rebase 후 작업함(상위 브랜치 내용이 개인 브랜치에 불러와짐)
-    - master 브랜치는 기능이 다 완성된 경우에만 PR
+    1. develop 브랜치를 clone함
+        git clone -b develop https://github.com/GetHealthy-Daejeon/GetHealthy.git
+    2. 개인 작업 후 develop 브랜치로 push
+    3. 3-4일에 한번씩 develop 브랜치를 master 브랜치로 PR(Pull Request)함
