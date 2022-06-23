@@ -33,7 +33,6 @@
         height: 100%;
       } */ 
 
-
       #daum-maps-shape-2{
         background-color: yellowgreen;
       }
@@ -66,16 +65,7 @@
         level: 8,
       };
     var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성
-    // hover시 행정구 이름 표시
-    // (customOverlay = new kakao.maps.CustomOverlay({})), 
-    // (infowindow = new kakao.maps.InfoWindow({ removable: true }));
-
-
-    // 인포윈도우 생성
-    var infowindow = new kakao.maps.InfoWindow({
-      content: iwContent,
-      removable: iwRemoveable,
-    });
+   
 
 
 
@@ -92,6 +82,7 @@
         });
       });
     });
+
   </script>
   <script>
     // 구 구분
@@ -195,7 +186,7 @@
         // customOverlay.setMap(null);
       });
 
-      // 다각형에 click 이벤트를 등록하고 이벤트가 발생하면 해당 지역 확대을 확대합니다.
+      // 다각형에 click 이벤트를 등록하고 이벤트가 발생하면 해당 지역 확대를 확대합니다.
       kakao.maps.event.addListener(polygon, "click", function () {
         // 현재 지도 레벨에서 2레벨 확대한 레벨
         var level = map.getLevel() -1; 
@@ -203,28 +194,18 @@
         map.setLevel(level, {
           anchor: centroid(points),
           animate: {
-            duration: 50, //확대 애니메이션 시간
+          duration: 50, //확대 애니메이션 시간
           },
+        })
+        polygon.setOptions({
+            fillColor : "00ff0000",
         });
-        // deletePolygon(polygons); //폴리곤 제거
+
+        deletePolygon(polygon); //폴리곤 제거
       });
     }
 
-    kakao.maps.event.addListener(polygon, "click", function (mouseEvent) {
-      var content =
-        '<div class="info">' +
-        '   <div class="title">' +
-        area.name +
-        "</div>" +
-        '   <div class="size">총 면적 : 약 ' +
-        Math.floor(polygon.getArea()) +
-        " m<sup>2</sup></div>" +
-        "</div>";
 
-      infowindow.setContent(content);
-      infowindow.setPosition(mouseEvent.latLng);
-      infowindow.setMap(map);
-    });
 
     //centroid 알고리즘 (폴리곤 중심좌표 구하기 위함)
     function centroid(points) {
@@ -244,12 +225,13 @@
       return new daum.maps.LatLng(x / area, y / area);
     }
 
+
     //지도 위 표시되고 있는 폴리곤 제거
-    function deletePolygon(polygons) {
-      for (var i = 0; i < polygons.length; i++) {
-        polygons[i].setMap(null);
+    function deletePolygon(polygon) {
+      for (var i = 0; i < polygon.length; i++) {
+        polygon[i].setMap(null);
       }
-      polygons = [];
+      polygon = [];
     }
 
     // kakao.maps.event.addListener(polygon, 'click', function(mouseEvent) {
@@ -263,28 +245,5 @@
     //     infowindow.setMap(map);
     // });
   </script>
-  <script>
-            //클릭시 폴리곤 제거
-        //     function centroid (points){
-        //   var i, j, len, p1, p2, f, area, x, y;
-        //   area = x = y =0;
-
-        //   for (i=0, len = points.length, j = len -1; i<len; j = i++)
-        //     p1 = points[i];
-        //     p2 = point[j];
-
-        //     f = p1.y * p2.x - p2.y * p1.x;
-        //     x += (p1.x + p2.x) * f;
-        //     y+= (p1.y + p2.y) *f;
-        //     area += f * 3;
-
-        //  }
-        //  return new deum.maps.LatLng(x / area, y/ area);
-
-        //   function deletePolygon(polygon){
-        //     for( var i=0; i<polyogons.length; i++){
-        //       polygons[i].setMap(null)
-        //         }
-        //   }
-  </script>
+  
 </html>
