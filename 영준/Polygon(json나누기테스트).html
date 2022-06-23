@@ -232,7 +232,7 @@
         var level = map.getLevel()-2;
         map.setLevel(level, {anchor: centroid(points), animate: {
             duration: 350 // 확대 애니메이션 시간
-        }});  
+        }});
         $.getJSON("행정동json/yuseong-gu.json", function (geojson) {
           var data = geojson.features;
           var coordinates = []; // 좌표 저장
