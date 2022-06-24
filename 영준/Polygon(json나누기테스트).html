@@ -81,105 +81,7 @@
     });
   </script>
   <script>
-    var polygons = []; // function 안 쪽에 지역변수로 넣으니깐 폴리곤 하나 생성할 때마다 배열이 비어서 클릭했을 때 전체를 못 없애줌. 그래서 전역변수로 만듦.
-    // // 전체 구 생성
-    // $.getJSON("new-gu.json", function (geojson) {
-    //   var data = geojson.features;
-    //   var coordinates = []; // 좌표 저장
-    //   var name = ""; // 구 이름
-    //   $.each(data, function (index, val) {
-    //     coordinates = val.geometry.coordinates;
-    //     name = val.properties.SGG_NM;
-    //     displayArea(coordinates, name);
-    //   });
-    // });
-    // // 전체 구 폴리곤
-    // function displayArea(coordinates, name) {
-    //   var polygonPath = []; // 폴리곤 그려줄 polygonPath
-    //   var points = []; // 중심좌표 구하기 위한 지역구 좌표들
-    //   $.each(coordinates[0], function (index, coordinate) {
-    //     // coordinates [0]번째에 배열 있음
-    //     var point = new Object();
-    //     point.x = coordinate[1]; // 경도
-    //     point.y = coordinate[0]; // 위도
-    //     points.push(point);
-    //     // console.log(point)
-    //     // console.log(points)
-    //     polygonPath.push(new kakao.maps.LatLng(coordinate[1], coordinate[0]));
-    //     //new kakao.maps.LatLng가 없으면 인식을 못해서 polygonPath 배열에 추가
-    //   });
-
-    //   // 전체 구 다각형 생성 & 설정
-    //   var polygon = new kakao.maps.Polygon({
-    //     map: map, // 다각형을 표시할 지도 객체
-    //     path: polygonPath, // 좌표 배열
-    //     strokeWeight: 2, // 선 두께
-    //     strokeColor: "#004c80", // 선 색깔
-    //     strokeOpacity: 0.8, // 선 불투명도
-    //     fillColor: "#fff", // 채우기 색깔
-    //     fillOpacity: 0.7, // 채우기 불투명도
-    //   });
-
-    //   polygons.push(polygon); // 폴리곤 제거하기 위한 배열
-
-    //   // 다각형에 마우스오버 이벤트가 발생했을 때 변경할 채우기 옵션입니다
-    //   var mouseoverOption = {
-    //     fillColor: "#09f", // 채우기 색깔입니다
-    //     fillOpacity: 0.8, // 채우기 불투명도 입니다
-    //   };
-
-    //   // 마우스아웃 이벤트 채우기
-    //   var mouseoutOption = {
-    //     fillColor: "#A2FF99", // 채우기 색깔
-    //     fillOpacity: 0.7, // 채우기 불투명도
-    //   };
-
-    //   // 마우스오버 이벤트
-    //   kakao.maps.event.addListener(polygon, "mouseover", function () {
-    //     polygon.setOptions(mouseoverOption); // 채우기 옵션
-    //   });
-
-    //   // 다각형에 mouseover 이벤트를 등록하고 이벤트가 발생하면 폴리곤의 채움색을 변경
-    //   // 지역명을 표시하는 커스텀오버레이를 지도위에 표시합니다
-    //   kakao.maps.event.addListener(polygon, "mouseover", function (mouseEvent) {
-    //     polygon.setOptions({
-    //       fillColor: "#09f",
-    //     });
-    //     customOverlay.setContent('<div class="area">' + name + "</div>");
-    //     customOverlay.setPosition(mouseEvent.latLng);
-    //     customOverlay.setMap(map);
-    //   });
-
-    //   // 다각형에 mousemove 이벤트를 등록하고 이벤트가 발생하면 커스텀 오버레이의 위치를 변경합니다
-    //   daum.maps.event.addListener(polygon, "mousemove", function (mouseEvent) {
-    //     customOverlay.setPosition(mouseEvent.latLng);
-    //   });
-
-    //   // 다각형에 mouseout 이벤트를 등록하고 이벤트가 발생하면 폴리곤의 채움색을 원래색으로 변경합니다
-    //   // 커스텀 오버레이를 지도에서 제거합니다
-    //   daum.maps.event.addListener(polygon, "mouseout", function () {
-    //     polygon.setOptions({
-    //       fillColor: "#fff",
-    //     });
-    //     customOverlay.setMap(null);
-    //   });
-
-    //   // 다각형 click 이벤트 : 해당 지역 확대
-    //   kakao.maps.event.addListener(polygon, "click", function () {
-    //     // 현재 지도 레벨에서 2레벨 확대한 레벨
-    //     var level = map.getLevel() - 1;
-    //     // 지도를 클릭된 폴리곤의 중앙 위치를 기준으로 확대합니다
-    //     map.setLevel(level, {
-    //       anchor: centroid(points),
-    //       animate: {
-    //         duration: 50, //확대 애니메이션 시간
-    //       },
-    //     });
-    //     // deletePolygon(polygons); //폴리곤 제거
-    //   });
-    // }
-
-
+    var polygons = []; // 폴리곤 지울때 사용하는 배열 담는 변수
 
     //지도 위 표시되고 있는 폴리곤 제거
     function deletePolygon(polygons) {
@@ -189,7 +91,6 @@
       }
       polygons = [];
     }
-
 
 // 유성구
     // 유성구 폴리곤 데이터 갖고오기
@@ -223,14 +124,15 @@
         strokeWeight: 2, // 선 두께
         strokeColor: "#004c80", // 선 색깔
         strokeOpacity: 0.8, // 선 불투명도
-        fillColor: "#00ff0000", // 채우기 색깔 - 투명색
-        fillOpacity: 0.7, // 채우기 불투명도
+        fillColor: "#fff", // 채우기 색깔 - 투명색 : 00ff0000
+        fillOpacity: 0.5, // 채우기 불투명도
       });
       polygons.push(yuseongPolygon); // 폴리곤 제거하기 위한 배열      
       // 유성구 폴리곤을 클릭하면 유성구 행정동 폴리곤 데이터 가져오기
       kakao.maps.event.addListener(yuseongPolygon, 'click', function(mouseEvent) {
         var level = map.getLevel()-2;
-        map.setLevel(level, {anchor: centroid(points), animate: {
+        // map.setLevel(level, {anchor: centroid(points), animate: {
+        map.setLevel(level, {anchor: new daum.maps.LatLng(mouseEvent.latLng.getLat(), mouseEvent.latLng.getLng()), animate: {
             duration: 350 // 확대 애니메이션 시간
         }});
         $.getJSON("행정동json/yuseong-gu.json", function (geojson) {
@@ -244,17 +146,45 @@
           });
         });
         deletePolygon(polygons); //폴리곤 제거
+        customOverlay.setMap(null); // 커스텀 오버레이(구 이름) 제거
       });
+
+      // 마우스오버 이벤트
+      kakao.maps.event.addListener(yuseongPolygon, "mouseover", function () {
+        yuseongPolygon.setOptions(mouseoverOption);
+      });
+      // 마우스오버 이벤트 채우기
+      var mouseoverOption = {
+        fillColor: "#09f", // 색상
+        fillOpacity: 0.8, // 불투명도
+      };
+     // 마우스아웃 이벤트
+      daum.maps.event.addListener(yuseongPolygon, "mouseout", function () {
+        yuseongPolygon.setOptions(mouseoutOption)
+      });
+      // 마우스아웃 채우기
+      var mouseoutOption = {
+        fillColor: "#fff", // 채우기 색깔 초록색 : A2FF99
+        fillOpacity: 0.5, // 채우기 불투명도
+      };
+
+      // 커스텀 오버레이 내용
+      // var content = '<div class ="label"><span class="left"></span><span class="center">유성구</span><span class="right"></span></div>';
+      var content = '<div class ="label" style ="font-size:30px">유성구</div>';
+      // 커스텀 오버레이 위치
+      var position = centroid(points);  
+      // 커스텀 오버레이 생성
+      var customOverlay = new kakao.maps.CustomOverlay({
+          position: position,
+          content: content   
+      });
+      // 커스텀 오버레이를 지도에 표시
+      customOverlay.setMap(map);
     }
     // 유성구 행정동 폴리곤 만들기
     function displayYuseong_dong(coordinates, name) {
       var yuseong_dong_PolygonPath = [];
-      var points = [];
       $.each(coordinates[0], function (index, coordinate) {
-        // var point = new Object();
-        // point.x = coordinate[1]; // 경도
-        // point.y = coordinate[0]; // 위도
-        // points.push(point);
         yuseong_dong_PolygonPath.push(new kakao.maps.LatLng(coordinate[1], coordinate[0]));
       });
       var yuseong_dong_Polygon = new kakao.maps.Polygon({
@@ -264,8 +194,12 @@
         strokeColor: "#004c80", // 선 색깔
         strokeOpacity: 0.8, // 선 불투명도
         fillColor: "#fff", // 채우기 색깔
-        fillOpacity: 0.7, // 채우기 불투명도
+        fillOpacity: 0.5, // 채우기 불투명도
       });
+      yuseong_dong_Polygon.setOptions({
+          fillColor: "#A2FF99",
+          fillOpacity: 0.5
+      })
     }
 
 // 대덕구
@@ -299,7 +233,7 @@
         strokeColor: "#004c80", // 선 색깔
         strokeOpacity: 0.8, // 선 불투명도
         fillColor: "#fff", // 채우기 색깔
-        fillOpacity: 0.7, // 채우기 불투명도
+        fillOpacity: 0.5, // 채우기 불투명도
       });
       polygons.push(daedeokPolygon); // 폴리곤 제거하기 위한 배열
       // 대덕구 폴리곤을 클릭하면 대덕구 행정동 폴리곤 데이터 가져오기
@@ -354,7 +288,7 @@
         strokeColor: "#004c80", // 선 색깔
         strokeOpacity: 0.8, // 선 불투명도
         fillColor: "#fff", // 채우기 색깔
-        fillOpacity: 0.7, // 채우기 불투명도
+        fillOpacity: 0.5, // 채우기 불투명도
       });
       polygons.push(daedeokPolygon); // 폴리곤 제거하기 위한 배열
       // 동구 폴리곤을 클릭하면 대덕구 행정동 폴리곤 데이터 가져오기
@@ -409,7 +343,7 @@
         strokeColor: "#004c80", // 선 색깔
         strokeOpacity: 0.8, // 선 불투명도
         fillColor: "#fff", // 채우기 색깔
-        fillOpacity: 0.7, // 채우기 불투명도
+        fillOpacity: 0.5, // 채우기 불투명도
       });
       polygons.push(daedeokPolygon); // 폴리곤 제거하기 위한 배열
       // 중구 폴리곤을 클릭하면 대덕구 행정동 폴리곤 데이터 가져오기
@@ -464,7 +398,7 @@
         strokeColor: "#004c80", // 선 색깔
         strokeOpacity: 0.8, // 선 불투명도
         fillColor: "#fff", // 채우기 색깔
-        fillOpacity: 0.7, // 채우기 불투명도
+        fillOpacity: 0.5, // 채우기 불투명도
       });
       polygons.push(daedeokPolygon); // 폴리곤 제거하기 위한 배열
       // 서구 폴리곤을 클릭하면 대덕구 행정동 폴리곤 데이터 가져오기
@@ -506,5 +440,10 @@
       }
       return new daum.maps.LatLng(x / area, y / area);
     }
+
+    // 아래와 같이 옵션을 입력하지 않아도 된다
+    var zoomControl = new kakao.maps.ZoomControl();
+    // 지도 오른쪽에 줌 컨트롤이 표시되도록 지도에 컨트롤을 추가한다.
+    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
   </script>
 </html>
