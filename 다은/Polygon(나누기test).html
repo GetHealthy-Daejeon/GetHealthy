@@ -239,7 +239,7 @@
         strokeWeight: 4, // 선 두께
         strokeColor: "#FFFFFF", // 선 색깔
         strokeOpacity: 0.8, // 선 불투명도
-        fillColor: "	#FFD700", // 채우기 색깔
+        fillColor: "#FFD700", // 채우기 색깔
         fillOpacity: 0.8, // 채우기 불투명도
       });
       polygons.push(daedeokPolygon); // 폴리곤 제거하기 위한 배열
@@ -261,7 +261,40 @@
           });
         });
         deletePolygon(polygons);
+        customOverlay.setMap(null); // 커스텀 오버레이(구 이름) 제거
       });
+      
+         // 마우스오버 이벤트
+         kakao.maps.event.addListener(daedeokPolygon, "mouseover", function () {
+          daedeokPolygon.setOptions(mouseoverOption);
+      });
+      // 마우스오버 이벤트 채우기
+      var mouseoverOption = {
+        fillColor: "#09f", // 색상
+        fillOpacity: 0.8, // 불투명도
+      };
+     // 마우스아웃 이벤트
+      daum.maps.event.addListener(daedeokPolygon, "mouseout", function () {
+        daedeokPolygon.setOptions(mouseoutOption)
+      });
+      // 마우스아웃 채우기
+      var mouseoutOption = {
+        fillColor: "#FFD700", // 채우기 색깔 초록색 : A2FF99
+        fillOpacity: 0.8, // 채우기 불투명도
+      };
+
+      // 커스텀 오버레이 내용
+      // var content = '<div class ="label"><span class="left"></span><span class="center">유성구</span><span class="right"></span></div>';
+      var content = '<div class ="label" style ="font-size:30px">대덕구</div>';
+      // 커스텀 오버레이 위치
+      var position = centroid(points);  
+      // 커스텀 오버레이 생성
+      var customOverlay = new kakao.maps.CustomOverlay({
+          position: position,
+          content: content   
+      });
+      // 커스텀 오버레이를 지도에 표시
+      customOverlay.setMap(map);
     }
 
 
@@ -452,9 +485,6 @@
       return new daum.maps.LatLng(x / area, y / area);
     }
 
-    // 아래와 같이 옵션을 입력하지 않아도 된다
-    var zoomControl = new kakao.maps.ZoomControl();
-    // 지도 오른쪽에 줌 컨트롤이 표시되도록 지도에 컨트롤을 추가한다.
-    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
   </script>
 </html>
