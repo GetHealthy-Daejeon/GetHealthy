@@ -257,11 +257,42 @@
           $.each(data, function (index, val) {
             coordinates = val.geometry.coordinates;
             name = val.properties.SGG_NM;
-            displayYuseong_dong(coordinates, name);
+            displayYuseong_dong(coordinates, name); // 행정동 폴리곤 만들기 공동사용
           });
         });
         deletePolygon(polygons);
+        customOverlay.setMap(null); // 커스텀 오버레이(구 이름) 제거
       });
+      // 마우스오버 이벤트
+        kakao.maps.event.addListener(daedeokPolygon, "mouseover", function () {
+          daedeokPolygon.setOptions(mouseoverOption);
+      });
+      // 마우스오버 이벤트 채우기
+      var mouseoverOption = {
+        fillColor: "#09f", // 색상
+        fillOpacity: 0.8, // 불투명도
+      };
+     // 마우스아웃 이벤트
+      daum.maps.event.addListener(daedeokPolygon, "mouseout", function () {
+        daedeokPolygon.setOptions(mouseoutOption)
+      });
+      // 마우스아웃 채우기
+      var mouseoutOption = {
+        fillColor: "#FFD700",
+        fillOpacity: 0.8, // 채우기 불투명도
+      };
+
+      // 커스텀 오버레이 내용
+      var content = '<div class ="label" style ="font-size:30px">대덕구</div>';
+      // 커스텀 오버레이 위치
+      var position = centroid(points);  
+      // 커스텀 오버레이 생성
+      var customOverlay = new kakao.maps.CustomOverlay({
+          position: position,
+          content: content   
+      });
+      // 커스텀 오버레이를 지도에 표시
+      customOverlay.setMap(map);
     }
 
 
@@ -279,28 +310,28 @@
     });
     // 동구 폴리곤 생성
     function displayDongArea(coordinates, name) {
-      var daedeokPolygonPath = [];
+      var dongPolygonPath = [];
       var points = [];
       $.each(coordinates[0], function (index, coordinate) {
         var point = new Object();
         point.x = coordinate[1];
         point.y = coordinate[0];
         points.push(point);
-        daedeokPolygonPath.push(new kakao.maps.LatLng(coordinate[1], coordinate[0]));
+        dongPolygonPath.push(new kakao.maps.LatLng(coordinate[1], coordinate[0]));
       });
       // 동구 다각형 설정
-      var daedeokPolygon = new kakao.maps.Polygon({
+      var dongPolygon = new kakao.maps.Polygon({
         map: map, // 다각형을 표시할 지도 객체
-        path: daedeokPolygonPath, // 좌표 배열
+        path: dongPolygonPath, // 좌표 배열
         strokeWeight: 4, // 선 두께
         strokeColor: "#FFFFFF", // 선 색깔
         strokeOpacity: 0.8, // 선 불투명도
         fillColor: "#87CEFA", // 채우기 색깔
         fillOpacity: 0.8, // 채우기 불투명도
       });
-      polygons.push(daedeokPolygon); // 폴리곤 제거하기 위한 배열
+      polygons.push(dongPolygon); // 폴리곤 제거하기 위한 배열
       // 동구 폴리곤을 클릭하면 대덕구 행정동 폴리곤 데이터 가져오기
-      kakao.maps.event.addListener(daedeokPolygon, 'click', function(mouseEvent) {
+      kakao.maps.event.addListener(dongPolygon, 'click', function(mouseEvent) {
         var level = map.getLevel()-2;
         map.setLevel(level, {anchor: centroid(points), animate: {
             duration: 350 // 확대 애니메이션 시간
@@ -316,7 +347,38 @@
           });
         });
         deletePolygon(polygons);
+        customOverlay.setMap(null); // 커스텀 오버레이(구 이름) 제거
       });
+      // 마우스오버 이벤트
+      kakao.maps.event.addListener(dongPolygon, "mouseover", function () {
+        dongPolygon.setOptions(mouseoverOption);
+      });
+      // 마우스오버 이벤트 채우기
+      var mouseoverOption = {
+        fillColor: "#09f", // 색상
+        fillOpacity: 0.8, // 불투명도
+      };
+      // 마우스아웃 이벤트
+      daum.maps.event.addListener(dongPolygon, "mouseout", function () {
+        dongPolygon.setOptions(mouseoutOption)
+      });
+      // 마우스아웃 채우기
+      var mouseoutOption = {
+        fillColor: "#87CEFA", // 채우기 색깔 초록색 : A2FF99
+        fillOpacity: 0.8, // 채우기 불투명도
+      };
+
+      // 커스텀 오버레이 내용
+      var content = '<div class ="label" style ="font-size:30px">유성구</div>';
+      // 커스텀 오버레이 위치
+      var position = centroid(points);  
+      // 커스텀 오버레이 생성
+      var customOverlay = new kakao.maps.CustomOverlay({
+          position: position,
+          content: content   
+      });
+      // 커스텀 오버레이를 지도에 표시
+      customOverlay.setMap(map);
     }
 
 
@@ -334,28 +396,28 @@
     });
     // 중구 폴리곤 생성
     function displayJungArea(coordinates, name) {
-      var daedeokPolygonPath = [];
+      var jungPolygonPath = [];
       var points = [];
       $.each(coordinates[0], function (index, coordinate) {
         var point = new Object();
         point.x = coordinate[1];
         point.y = coordinate[0];
         points.push(point);
-        daedeokPolygonPath.push(new kakao.maps.LatLng(coordinate[1], coordinate[0]));
+        jungPolygonPath.push(new kakao.maps.LatLng(coordinate[1], coordinate[0]));
       });
       // 중구 다각형 설정
-      var daedeokPolygon = new kakao.maps.Polygon({
+      var jungPolygon = new kakao.maps.Polygon({
         map: map, // 다각형을 표시할 지도 객체
-        path: daedeokPolygonPath, // 좌표 배열
+        path: jungPolygonPath, // 좌표 배열
         strokeWeight: 4, // 선 두께
         strokeColor: "#FFFFFF", // 선 색깔
         strokeOpacity: 0.8, // 선 불투명도
         fillColor: "#FF4500", // 채우기 색깔
         fillOpacity: 0.8, // 채우기 불투명도
       });
-      polygons.push(daedeokPolygon); // 폴리곤 제거하기 위한 배열
+      polygons.push(jungPolygon); // 폴리곤 제거하기 위한 배열
       // 중구 폴리곤을 클릭하면 대덕구 행정동 폴리곤 데이터 가져오기
-      kakao.maps.event.addListener(daedeokPolygon, 'click', function(mouseEvent) {
+      kakao.maps.event.addListener(jungPolygon, 'click', function(mouseEvent) {
         var level = map.getLevel()-2;
         map.setLevel(level, {anchor: centroid(points), animate: {
             duration: 350 // 확대 애니메이션 시간
@@ -371,7 +433,39 @@
           });
         });
         deletePolygon(polygons);
+        customOverlay.setMap(null);
       });
+      // 마우스오버 이벤트
+        kakao.maps.event.addListener(jungPolygon, "mouseover", function () {
+          jungPolygon.setOptions(mouseoverOption);
+      });
+      // 마우스오버 이벤트 채우기
+      var mouseoverOption = {
+        fillColor: "#09f", // 색상
+        fillOpacity: 0.8, // 불투명도
+      };
+     // 마우스아웃 이벤트
+      daum.maps.event.addListener(jungPolygon, "mouseout", function () {
+        jungPolygon.setOptions(mouseoutOption)
+      });
+      // 마우스아웃 채우기
+      var mouseoutOption = {
+        fillColor: "#FF4500", // 채우기 색깔 초록색 : A2FF99
+        fillOpacity: 0.8, // 채우기 불투명도
+      };
+
+      // 커스텀 오버레이 내용
+      // var content = '<div class ="label"><span class="left"></span><span class="center">유성구</span><span class="right"></span></div>';
+      var content = '<div class ="label" style ="font-size:30px">중구</div>';
+      // 커스텀 오버레이 위치
+      var position = centroid(points);  
+      // 커스텀 오버레이 생성
+      var customOverlay = new kakao.maps.CustomOverlay({
+          position: position,
+          content: content   
+      });
+      // 커스텀 오버레이를 지도에 표시
+      customOverlay.setMap(map);
     }
 
 
@@ -389,31 +483,31 @@
     });
     // 서구 폴리곤 생성
     function displaySeoArea(coordinates, name) {
-      var daedeokPolygonPath = [];
+      var seoPolygonPath = [];
       var points = [];
       $.each(coordinates[0], function (index, coordinate) {
         var point = new Object();
         point.x = coordinate[1];
         point.y = coordinate[0];
         points.push(point);
-        daedeokPolygonPath.push(new kakao.maps.LatLng(coordinate[1], coordinate[0]));
+        seoPolygonPath.push(new kakao.maps.LatLng(coordinate[1], coordinate[0]));
       });
       // 서구 다각형 설정
-      var daedeokPolygon = new kakao.maps.Polygon({
-        map: map, // 다각형을 표시할 지도 객체
-        path: daedeokPolygonPath, // 좌표 배열
-        strokeWeight: 4, // 선 두께
-        strokeColor: "#FFFFFF", // 선 색깔
-        strokeOpacity: 0.8, // 선 불투명도
-        fillColor: "#F08080", // 채우기 색깔
-        fillOpacity: 0.8, // 채우기 불투명도
+      var seoPolygon = new kakao.maps.Polygon({
+        map: map, 
+        path: seoPolygonPath, 
+        strokeWeight: 4, 
+        strokeColor: "#FFFFFF",
+        strokeOpacity: 0.8,
+        fillColor: "#F08080", 
+        fillOpacity: 0.8,
       });
-      polygons.push(daedeokPolygon); // 폴리곤 제거하기 위한 배열
+      polygons.push(seoPolygon); // 폴리곤 제거하기 위한 배열
       // 서구 폴리곤을 클릭하면 대덕구 행정동 폴리곤 데이터 가져오기
-      kakao.maps.event.addListener(daedeokPolygon, 'click', function(mouseEvent) {
+      kakao.maps.event.addListener(seoPolygon, 'click', function(mouseEvent) {
         var level = map.getLevel()-2;
         map.setLevel(level, {anchor: centroid(points), animate: {
-            duration: 350 // 확대 애니메이션 시간
+            duration: 350
         }});  
         $.getJSON("행정동json/seo-gu.json", function (geojson) {
           var data = geojson.features;
@@ -426,7 +520,39 @@
           });
         });
         deletePolygon(polygons);
+        customOverlay.setMap(null);
       });
+
+      // 마우스오버 이벤트
+      kakao.maps.event.addListener(seoPolygon, "mouseover", function () {
+        seoPolygon.setOptions(mouseoverOption);
+      });
+      // 마우스오버 이벤트 채우기
+      var mouseoverOption = {
+        fillColor: "#09f",
+        fillOpacity: 0.8,
+      };
+     // 마우스아웃 이벤트
+      daum.maps.event.addListener(seoPolygon, "mouseout", function () {
+        seoPolygon.setOptions(mouseoutOption)
+      });
+      // 마우스아웃 채우기
+      var mouseoutOption = {
+        fillColor: "#F08080",
+        fillOpacity: 0.8,
+      };
+
+      // 커스텀 오버레이 내용
+      var content = '<div class ="label" style ="font-size:30px">서구</div>';
+      // 커스텀 오버레이 위치
+      var position = centroid(points);  
+      // 커스텀 오버레이 생성
+      var customOverlay = new kakao.maps.CustomOverlay({
+          position: position,
+          content: content   
+      });
+      // 커스텀 오버레이를 지도에 표시
+      customOverlay.setMap(map);
     }
 
 
