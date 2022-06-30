@@ -549,6 +549,7 @@ ul.entry-meta {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    text-align: center;
     padding: 3%;
     margin-left: auto;
     margin-right: auto;
