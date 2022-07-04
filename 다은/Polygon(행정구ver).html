@@ -640,7 +640,7 @@ function closeOverlay() {
         fillOpacity: 0.8,
       });
       polygons.push(seoPolygon); // 폴리곤 제거하기 위한 배열
-      // 서구 폴리곤을 클릭하면 대덕구 행정동 폴리곤 데이터 가져오기
+      // 서구 폴리곤을 클릭하면 서구 행정동 폴리곤 데이터 가져오기
       kakao.maps.event.addListener(seoPolygon, "click", function (mouseEvent) {
         var level = map.getLevel() - 2;
         map.setLevel(level, {
@@ -657,7 +657,6 @@ function closeOverlay() {
             coordinates = val.geometry.coordinates;
             name = val.properties.SGG_NM;
             displayYuseong_dong(coordinates, name);
-            setZoomable(false) // 클릭시 마우스 휠 작동 off
           });
         });
         deletePolygon(polygons);

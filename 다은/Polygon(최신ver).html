@@ -130,14 +130,6 @@
     });
     marker.setMap(map); // 마커 표시
 
-    // 마커 제거
-    // marker.setMap(null);
-
-    // 마커 클릭하면 나올 인포윈도우
-    var iwContent =
-        '<div style="padding:10px; font-size: 20px; width: 100%; font-weight: 900" >여기는 대전광역시</div>',
-      iwRemoveable = true; // 인포윈도우를 닫는 x버튼 표시
-
     // 인포윈도우 생성
     var infowindow = new kakao.maps.InfoWindow({
       content: iwContent,
@@ -526,7 +518,7 @@
         fillOpacity: 0.8, // 채우기 불투명도
       });
       polygons.push(jungPolygon); // 폴리곤 제거하기 위한 배열
-      // 중구 폴리곤을 클릭하면 대덕구 행정동 폴리곤 데이터 가져오기
+      // 중구 폴리곤을 클릭하면 중구 행정동 폴리곤 데이터 가져오기
       kakao.maps.event.addListener(jungPolygon, "click", function (mouseEvent) {
         var level = map.getLevel() - 2;
         map.setLevel(level, {
@@ -543,7 +535,6 @@
             coordinates = val.geometry.coordinates;
             name = val.properties.SGG_NM;
             displayYuseong_dong(coordinates, name);
-            setZoomable(false) // 클릭시 마우스 휠 작동 off
           });
         });
         deletePolygon(polygons);
@@ -620,6 +611,7 @@
       polygons.push(seoPolygon); // 폴리곤 제거하기 위한 배열
       // 서구 폴리곤을 클릭하면 대덕구 행정동 폴리곤 데이터 가져오기
       kakao.maps.event.addListener(seoPolygon, "click", function (mouseEvent) {
+        
         var level = map.getLevel() - 2;
         map.setLevel(level, {
           anchor: centroid(points),
@@ -627,15 +619,15 @@
             duration: 350,
           },
         });
-        $.getJSON("행정동json/seo-gu.json", function (geojson) {
+        $.getJSON("구별json/seo.json", function (geojson) {
           var data = geojson.features;
           var coordinates = [];
           var dongName = "";
+      
           $.each(data, function (index, val) {
             coordinates = val.geometry.coordinates;
             name = val.properties.SGG_NM;
             displayYuseong_dong(coordinates, name);
-            setZoomable(false) // 클릭시 마우스 휠 작동 off
           });
         });
         deletePolygon(polygons);
@@ -720,7 +712,7 @@
         path: [path, allDaejeonPolygonPath],
         strokeWeight: 2,
         strokeColor: "#b26bb2",
-        strokeOpacity: 0.8,
+        strokeOpacity: 0,
         fillColor: "#f9f",
         fillOpacity: 0.7,
       });
