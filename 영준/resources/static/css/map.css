@@ -16,16 +16,24 @@
 
 
 
+
 .text-box{
     font-size: 20px;
     font-weight: 900;
-    writing-mode: vertical-rl;
+    writing-mode: vertical-rl; /* 세로 쓰기 */
     text-align: center;
-    margin-right: 30%;
+    /* margin-right: 30%; */
+    /* 아래는 드래그 막는 css */
+    -ms-user-select: none; 
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 .text-box:hover{
-    cursor: pointer;
     transform: scaleX(1.15);
+    transform: scaleY(1.05);
+    transition: 2s;
 }
 .logo {
     margin: 15px;
@@ -34,13 +42,15 @@
     z-index: 1;
 }
 .banner-list {
-    /* position: fixed; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     visibility: hidden;
-    width: 0%;
     z-index: 1;
+    width: 0%; /* 처음에 0이었다가 구 클릭하면 커질예정 */
     margin: 10% auto;
-    transition: 1s;
-    /* vertical-align: middle; */
+    transition: 0.7s;
+    /* position: fixed; */
     /* visibility: hidden; */
     /* margin-top: 100px; */
 }
@@ -49,17 +59,14 @@
     display: flex;
     flex-direction: row;
     position: fixed;
-    width: 2%;
+    max-width: 2%;
     height: 80%;
-    margin-top: 5%;
-    /* margin-left: 1%; */
-    background-color: rgb(255, 255, 255, 0.7);
-    /* border-radius: 100px; */
+    margin-top: 7%;
+    background-color: rgba(255, 255, 255, 0.7);
     border-right: 1px solid gray;
     box-shadow: 1px 1px 5px gray;
     z-index: 1;
     transition: 0.5s;
-    /* margin-top: 100px; */
 }
 
 /* .logo {
@@ -88,7 +95,8 @@
 .banner-list input {
     width: 100%;
     height: 50px;
-    margin: 5px 15px;
+    /* margin: 5px 15px; */
+    margin: 5% 0;
     border-radius: 10%;
     border-color: rgb(156, 156, 156);
     cursor: pointer;
