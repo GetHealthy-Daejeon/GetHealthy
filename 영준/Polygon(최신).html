@@ -756,16 +756,17 @@
     }
 
     // 타슈 정류장 잔여 대수 정보 갖고오기
-    // $.ajax({
-    //     url : "https://new.tashu.or.kr/openapi/v1/getTashuApi/71637bed-510a-41b1-85fd-add178a0e6ce",
-    //     type : "GET",
-    //     // contentType : "application/json", // 보낼 때 json으로
-    //     dataType : "json", // 리턴값을 json으로
-    //     // data : JSON.stringify(jsonData),
-    //     success : function(response){
-    //       console.log(response);
-    //     }
-    // });
+    jsonData="71637bed-510a-41b1-85fd-add178a0e6ce";
+    $.ajax({
+        url : "https://new.tashu.or.kr/openapi/v1/getTashuApi/"+jsonData,
+        type : "POST",
+        contentType : "application/json", // 보낼 때 json으로
+        dataType : "json", // 리턴값을 json으로
+        data : JSON.stringify(jsonData),
+        success : function(response){
+          console.log(response);
+        }
+    });
 
     $(window).click(function(){			
       $("#hello").hide();			
