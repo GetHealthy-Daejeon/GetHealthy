@@ -30,9 +30,6 @@
           <input type="button" id="tashu" value="타슈">
           <input type="button" id="refresh" value="지도초기화" onclick="window.location.reload()">
         </div>
-        <div class="text-box">
-          구&nbsp;&nbsp;를&nbsp;&nbsp;&nbsp;&nbsp;선&nbsp;&nbsp;택&nbsp;&nbsp;해&nbsp;&nbsp;&nbsp;&nbsp;주&nbsp;&nbsp;세&nbsp;&nbsp;요&nbsp;&nbsp;.
-        </div>
       </div>
       <div id="map"></div>
     </div>
@@ -115,10 +112,9 @@
           yuseongPolygon,
           "click",
           function (mouseEvent) {
-            // $("#hello").hide(); // 첫 텍스트 삭제
-            $(".text-box").css({"visibility":"hidden"})
-            $(".banner").css({"visibility":"visible", "width":"9%"})
-            $(".banner-list").css({"visibility":"visible","width":"100%"})
+            $("#hello").hide(); // 첫 텍스트 삭제
+            $(".banner").css({"visibility":"visible", "height":"90%"}) // 구를 클릭했을 때 배너 표시
+            $(".banner-list").css({"height":"100%"})
             getParkInfo(name); // name = 유성구
             getTashuInfo(name);
             
