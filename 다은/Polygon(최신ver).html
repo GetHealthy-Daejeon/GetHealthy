@@ -83,7 +83,6 @@
         </div>
       </div>
       <div id="map"></div>
-      <!-- <p id="result"></p> 이건 왜 있을까용??-->
     </div>
   </body>
   <script
@@ -129,7 +128,22 @@
 
     // 마커 클릭하면 나올 인포윈도우
     var iwContent =
-        '<div style="padding:10px; font-size: 20px; width: 100%; font-weight: 900" >여기는 대전광역시</div>',
+    '<div style="width:100%;text-align:center;padding:20px 0;"> 장소 : ${item.fac_name} <br> 주소 : ${item.addr_road} <br> <a href="https://map.kakao.com/link/roadview/'+result[0].y+','+result[0].x+'" target="_blank">로드뷰</a> </div>'
+ 		      '<div class="wrap">' + 
+             '<div class="info">' + 
+             '        <div class="title">' + 
+             '            ${item.fac_name}' + 
+             '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+             '        </div>' + 
+             '        <div class="body">' + 
+             '           </div>' + 
+             '            <div class="desc">' + 
+             '                <div class="ellipsis">${item.addr_road}</div>' + 
+             '                <div><a href="https://map.kakao.com/link/roadview/" target="_blank">로드뷰</a> </div>' + 
+             '            </div>' + 
+             '        </div>' + 
+             '    </div>' +    
+             '</div>',
       iwRemoveable = true; // 인포윈도우를 닫는 x버튼 표시
 
     // 인포윈도우 생성
